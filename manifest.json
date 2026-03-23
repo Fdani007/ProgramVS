@@ -1,0 +1,21 @@
+{
+  "short_name": "FraganciaInv",
+  "name": "Inventario de Fragancias",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://via.placeholder.com/512",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#ff69b4"
+}
