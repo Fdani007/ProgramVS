@@ -4,28 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="manifest" href="manifest.json">
+    <title>Inventario Pro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>Inventario Mamá</title>
+    <style>
+        .fab-scanner { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; }
+    </style>
 </head>
-<body class="bg-light">
+<body class="bg-light pb-5">
 
 <div class="container py-3">
-    <h4 class="text-center mb-4">🌸 Stock Victoria's Secret</h4>
-    
-    <div id="reader" style="width: 100%; display: none;" class="mb-3"></div>
-    <button class="btn btn-dark w-100 mb-3" onclick="document.getElementById('reader').style.display='block'; iniciarEscaner(c => document.getElementById('txtCodigo').value = c)">
-        📷 Escanear Código
-    </button>
+    <h5 class="text-center mb-4">💎 GESTIÓN DE INVENTARIO</h5>
 
-    <div class="card p-3 mb-4 shadow-sm">
-        <input type="text" id="txtCodigo" class="form-control mb-2" placeholder="Código de Barras">
-        <input type="text" id="txtNombre" class="form-control mb-2" placeholder="Nombre de Fragancia">
-        <input type="number" id="txtStock" class="form-control mb-2" placeholder="Cantidad" value="1">
-        <button class="btn btn-success w-100" onclick="ui.registrar()">Guardar en Inventario</button>
+    <div id="reader" style="display:none;" class="mb-2"></div>
+    <button id="btnStop" class="btn btn-danger w-100 mb-3" style="display:none;" onclick="location.reload()">🛑 Cerrar Cámara</button>
+
+    <div class="card p-3 shadow-sm mb-4">
+        <label class="small text-muted">Código</label>
+        <input type="text" id="txtCodigo" class="form-control mb-2" onchange="ui.verificarExistencia(this.value)">
+        
+        <label class="small text-muted">Nombre del Producto</label>
+        <input type="text" id="txtNombre" class="form-control mb-2">
+        
+        <div class="row">
+            <div class="col-6">
+                <label class="small text-muted">Marca</label>
+                <select id="selMarca" class="form-select mb-2"></select>
+            </div>
+            <div class="col-6">
+                <label class="small text-muted">Tipo</label>
+                <select id="selCategoria" class="form-select mb-2"></select>
+            </div>
+        </div>
+
+        <label class="small text-muted">Stock Inicial</label>
+        <input type="number" id="txtStock" class="form-control mb-2" value="1">
+
+        <label class="small text-muted">Foto (Opcional)</label>
+        <input type="file" id="imgProducto" class="form-control mb-3" accept="image/*" capture="environment">
+
+        <button class="btn btn-success w-100 py-2" onclick="ui.guardarProducto()">💾 GUARDAR PRODUCTO</button>
     </div>
 
+    <h6 class="mb-3">LISTADO DISPONIBLE</h6>
     <div id="listaProductos"></div>
 </div>
+
+<button class="btn btn-primary fab-scanner" onclick="iniciarEscaner()">📷</button>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="js/db.js"></script>
